@@ -3,6 +3,6 @@
 @section('content')
   <h1>主页</h1>
   <a href="<?= route('help')?>">ewerwer</a><br>
-  <a href="<?= route('create')?>">注册</a><br>
+  <a href="<?= route('signup')?>">注册</a><br>
   
 @stop
