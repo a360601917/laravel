@@ -34,3 +34,13 @@
     </div>
   </div>
 </header>
+<script>
+  $(function(){
+    $('.dropdown-toggle').click(function(){
+      var li=$(this).parents().find('ul').show();
+      $(this).mouseover(function(){
+        li.find('ul').hide();
+      });
+    })
+  })
+</script>

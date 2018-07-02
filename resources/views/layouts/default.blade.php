@@ -3,6 +3,7 @@
   <head>
     <title>@yield('title', 'Sample App')</title>
     <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     @include('layouts._header')
