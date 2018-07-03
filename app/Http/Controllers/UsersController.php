@@ -10,10 +10,10 @@ class UsersController extends Controller {
 
   public function __construct() {
     $this->middleware('auth', [
-        'except' => ['show', 'create', 'store']
+        'except' => ['show', 'create', 'store', 'index'] //排除
     ]);
     $this->middleware('guest', [
-        'only' => ['create']
+        'only' => ['create']  //只有
     ]);
   }
 
@@ -23,7 +23,8 @@ class UsersController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    //
+    $users = User::paginate(10);
+    return view('users.index', compact('users'));
   }
 
   /**
@@ -112,6 +113,12 @@ class UsersController extends Controller {
    */
   public function destroy($id) {
     //
+  }
+
+  function test() {
+
+
+    return;
   }
 
 }
