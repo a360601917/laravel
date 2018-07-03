@@ -15,7 +15,7 @@
                 <li><a href="#">编辑资料</a></li>
                 <li class="divider"></li>
                 <li>
-                  <a id="logout" href="#">
+                  <a id="logout" href="javascript:;">
                     <form action="{{ route('logout') }}" method="POST">
                       {{ csrf_field() }}
                       {{ method_field('DELETE') }}
