@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 
 class SessionController extends Controller {
+
   function __construct() {
     $this->middleware('guest', [
-        'only'=>['create']
+        'only' => ['create']
     ]);
   }
 
@@ -21,9 +22,9 @@ class SessionController extends Controller {
         'email' => 'required|email|max:255',
         'password' => 'required'
     ]);
-    
+
     //第二个参数记住我
-    if (Auth::attempt($credentials,$request->has('remember'))) {
+    if (Auth::attempt($credentials, $request->has('remember'))) {
       // 登录成功后的相关操作
       session()->flash('success', '欢迎回来');
       //跳转到上次请求页,参数为当上一次请求记录为空时，跳转到默认地址上
