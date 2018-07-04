@@ -10,7 +10,7 @@ class UsersController extends Controller {
 
   public function __construct() {
     $this->middleware('auth', [
-        'except' => ['show', 'create', 'store', 'index'] //排除
+        'except' => ['show', 'create', 'store','index'] //排除
     ]);
     $this->middleware('guest', [
         'only' => ['create']  //只有
@@ -23,7 +23,7 @@ class UsersController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $users = User::paginate(10);
+    $users = User::paginate(5);
     return view('users.index', compact('users'));
   }
 
@@ -111,14 +111,17 @@ class UsersController extends Controller {
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id) {
-    //
+  public function destroy(User $user) {
+    $this->authorize('destroy', $user);
+    $user->delete();
+    session()->flash('success','成功删除用户！');
+    return back();
   }
 
   function test() {
 
 
-    return;
+    return 11111;
   }
 
 }
