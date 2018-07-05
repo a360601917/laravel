@@ -25,6 +25,13 @@ class SessionController extends Controller {
 
     //第二个参数记住我
     if (Auth::attempt($credentials, $request->has('remember'))) {
+      $user=Auth::user();
+      if(!$user->activated){
+        (new UsersController)->sendEmailConfirmationTo($user);
+        session()->flash('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
+        Auth::logout();
+        return redirect('/');
+      }
       // 登录成功后的相关操作
       session()->flash('success', '欢迎回来');
       //跳转到上次请求页,参数为当上一次请求记录为空时，跳转到默认地址上
