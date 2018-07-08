@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Status;
 use Auth;
 use Mail;
 
@@ -11,7 +12,7 @@ class UsersController extends Controller {
 
   public function __construct() {
     $this->middleware('auth', [
-        'except' => ['show', 'create', 'store', 'index', 'confirmEmail'] //排除
+        'except' => ['show', 'create', 'store', 'index', 'confirmEmail', 'test'] //排除
     ]);
     $this->middleware('guest', [
         'only' => ['create']  //只有
@@ -102,8 +103,11 @@ class UsersController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function show(User $user) {
+    $statuses = $user->statuses()
+            ->orderBy('created_at', 'desc')
+            ->paginate(3);
     //$user = user::find($id);
-    return view('users.show', compact('user'));
+    return view('users.show', compact('user', 'statuses'));
   }
 
   /**
@@ -156,9 +160,17 @@ class UsersController extends Controller {
   }
 
   function test() {
+    for ($i = 1; $i < 50; $i++) {
+      $arr = [
+          'content' => wordwrap(str_repeat(uniqid(), 10), rand(2, 9), " ", 1),
+          'user_id' => mt_rand(1, 4),
+          'created_at' => time() + mt_rand(1, 1000),
+      ];
+      Status::create($arr);
+    }
+    
 
-
-    return 11111;
+    return Status::find(1);
   }
 
 }
