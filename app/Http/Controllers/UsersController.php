@@ -168,7 +168,7 @@ class UsersController extends Controller {
       ];
       Status::create($arr);
     }
-    
+
 
     return Status::find(1);
   }
