@@ -54,8 +54,24 @@ class User extends Authenticatable {
     $this->notify(new ResetPassword($token));
   }
 
+  /*
+   * 关联，一对多
+   */
+
   public function statuses() {
     return $this->hasMany(Status::class);
+  }
+
+  /*
+   * 关联，多对多
+   */
+
+  public function followers() {
+    return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
+  }
+
+  public function followings() {
+    return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
   }
 
   function feed() {
